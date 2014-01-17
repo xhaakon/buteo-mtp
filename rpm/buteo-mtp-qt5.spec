@@ -1,5 +1,5 @@
 Name: buteo-mtp-qt5
-Version: 0.0.44
+Version: 0.2.1
 Release: 1
 Summary: MTP library
 Group: System/Libraries
@@ -107,7 +107,7 @@ Conflicts: buteo-mtp-tests
 
 
 %build
-%qmake5
+%qmake5 DEFINES+=BUTEO_ENABLE_DEBUG
 make %{_smp_mflags}
 
 
