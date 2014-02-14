@@ -2757,6 +2757,7 @@ quint32 MTPResponder::serializePropList(ObjHandle currentObj,
 
     quint32 serializedCount = 0;
 
+    MTP_LOG_INFO("PROPERTIES for object" << currentObj);
     for(QList<MTPObjPropDescVal>::const_iterator i = propValList.constBegin(); i != propValList.constEnd(); ++i)
     {
         if (!i->propVal.isValid()) {
@@ -2764,6 +2765,7 @@ quint32 MTPResponder::serializePropList(ObjHandle currentObj,
         }
 
         const MtpObjPropDesc *propDesc = i->propDesc;
+        MTP_LOG_INFO(" " << QString::number(propDesc->uPropCode, 16) << i->propVal);
         dataContainer << currentObj << propDesc->uPropCode << propDesc->uDataType;
         dataContainer.serializeVariantByType(propDesc->uDataType, i->propVal);
 
