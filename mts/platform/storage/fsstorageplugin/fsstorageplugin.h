@@ -234,11 +234,6 @@ private:
     /// \return size in bytes.
     quint32 getThumbCompressedSize( StorageItem *storageItem );
 
-    /// Gets key words for a storage item.
-    /// \param storageItem [in] the storage item.
-    /// \return keywords.
-    char* getKeywords( StorageItem *storageItem );
-
     /// Dump item info < node handle, node path, parent handle, parent path >, recursively if reqd.
     /// \param storageItem [in] the storage item.
     /// \param recurse indiicates whether to dump info recursively or not.

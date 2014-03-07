@@ -1602,8 +1602,6 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // date modified
     storageItem->m_objectInfo->mtpModificationDate =
             storageItem->dateModified();
-    // keywords.
-    storageItem->m_objectInfo->mtpKeywords = getKeywords( storageItem );
 }
 
 /************************************************************
@@ -1621,15 +1619,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * char* FSStoragePlugin::getKeywords
- ***********************************************************/
-char* FSStoragePlugin::getKeywords( StorageItem * /*storageItem*/ )
-{
-    // Not supported.
-    return 0;
 }
 
 /************************************************************
