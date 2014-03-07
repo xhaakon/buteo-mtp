@@ -104,6 +104,11 @@ private:
     /// \return a thumbnail path.
     QString thumbnailPath() const;
 
+    /// Gets the size of item's thumbnail in Bytes.
+    ///
+    /// \return thumbnail size in Bytes.
+    quint32 thumbnailSize() const;
+
     /// Formats given QDateTime into a MTP DateTime string with UTC time zone.
     ///
     /// The format is described in MTP specification at C.2.18.

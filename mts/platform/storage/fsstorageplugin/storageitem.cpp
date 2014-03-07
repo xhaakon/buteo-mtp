@@ -168,3 +168,13 @@ QString StorageItem::thumbnailPath() const
 
     return Thumbnailer::instance().requestThumbnail(m_path, mime);
 }
+
+quint32 StorageItem::thumbnailSize() const
+{
+    QString thumbPath(thumbnailPath());
+    if(thumbPath.isEmpty()) {
+        return 0;
+    }
+
+    return QFileInfo(thumbPath).size();
+}

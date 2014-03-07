@@ -1549,7 +1549,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // object size.
     storageItem->m_objectInfo->mtpObjectCompressedSize = storageItem->size();
     // thumb size
-    storageItem->m_objectInfo->mtpThumbCompressedSize = getThumbCompressedSize( storageItem );
+    storageItem->m_objectInfo->mtpThumbCompressedSize =
+            storageItem->thumbnailSize();
     // thumb format
     storageItem->m_objectInfo->mtpThumbFormat =
             storageItem->isImage() ? MTP_OBF_FORMAT_JFIF : MTP_OBF_FORMAT_Undefined;
@@ -1585,22 +1586,6 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // date modified
     storageItem->m_objectInfo->mtpModificationDate =
             storageItem->dateModified();
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getThumbCompressedSize
- ***********************************************************/
-quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
-{
-    quint32 size = 0;
-    if (storageItem->isImage()) {
-        QString thumbPath = storageItem->thumbnailPath();
-        if( !thumbPath.isEmpty() )
-        {
-            size = QFileInfo( thumbPath ).size();
-        }
-    }
-    return size;
 }
 
 /************************************************************
@@ -2573,7 +2558,7 @@ void FSStoragePlugin::receiveThumbnail(const QString &path)
     {
         StorageItem *storageItem = m_objectHandlesMap[handle];
         storageItem->m_objectInfo->mtpThumbCompressedSize =
-                getThumbCompressedSize( storageItem );
+                storageItem->thumbnailSize();
 
         QVector<quint32> params;
         params.append(handle); // TODO: remove

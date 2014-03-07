@@ -224,11 +224,6 @@ private:
     /// tracker
     void adjustMovedItemsPath( QString newAncestorPath, StorageItem* movedItem, bool updateInTracker = false );
 
-    /// Gets the size of a thumbnail item in bytes.
-    /// \param storageItem [in] the storage item.
-    /// \return size in bytes.
-    quint32 getThumbCompressedSize( StorageItem *storageItem );
-
     /// Dump item info < node handle, node path, parent handle, parent path >, recursively if reqd.
     /// \param storageItem [in] the storage item.
     /// \param recurse indiicates whether to dump info recursively or not.
