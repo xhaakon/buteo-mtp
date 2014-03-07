@@ -239,16 +239,6 @@ private:
     /// \return size in bytes.
     quint32 getThumbCompressedSize( StorageItem *storageItem );
 
-    /// Gets the width of a image item in pixels.
-    /// \param storageItem [in] the storage item.
-    /// \return width in pixels.
-    quint32 getImagePixelWidth( StorageItem *storageItem );
-
-    /// Gets the height of a image item in pixels.
-    /// \param storageItem [in] the storage item.
-    /// \return height in pixels.
-    quint32 getImagePixelHeight( StorageItem *storageItem );
-
     /// Gets the association type of a storage item.
     /// \param storageItem [in] the storage item.
     /// \return a code specifying the association type.

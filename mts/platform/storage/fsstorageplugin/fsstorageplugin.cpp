@@ -1577,9 +1577,11 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     storageItem->m_objectInfo->mtpThumbPixelHeight =
             storageItem->isImage() ? THUMB_HEIGHT : 0;
     // image pix width
-    storageItem->m_objectInfo->mtpImagePixelWidth = getImagePixelWidth( storageItem );
+    // TODO Fetch from tracker or determine from the file.
+    storageItem->m_objectInfo->mtpImagePixelWidth = 0;
     // image pix height
-    storageItem->m_objectInfo->mtpImagePixelHeight = getImagePixelHeight( storageItem );
+    // TODO Fetch from tracker or determine from the file.
+    storageItem->m_objectInfo->mtpImagePixelHeight = 0;
     // image bit depth
     storageItem->m_objectInfo->mtpImageBitDepth = getImageBitDepth( storageItem );
     // parent object.
@@ -1622,24 +1624,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getImagePixelWidth
- ***********************************************************/
-quint32 FSStoragePlugin::getImagePixelWidth( StorageItem * /*storageItem*/ )
-{
-    // TODO Fetch from tracker or determine from the file.
-    return 0;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getImagePixelHeight
- ***********************************************************/
-quint32 FSStoragePlugin::getImagePixelHeight( StorageItem * /*storageItem*/ )
-{
-    // TODO Fetch from tracker or determine from the file.
-    return 0;
 }
 
 /************************************************************
