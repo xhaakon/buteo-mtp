@@ -1591,7 +1591,9 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     storageItem->m_objectInfo->mtpAssociationType =
             storageItem->associationType();
     // association description
-    storageItem->m_objectInfo->mtpAssociationDescription = getAssociationDescription( storageItem );
+    // 0 means it is not a bi-directionally linked folder.
+    // See section 3.6.2.1 of the MTP spec.
+    storageItem->m_objectInfo->mtpAssociationDescription = 0;
     // sequence number
     storageItem->m_objectInfo->mtpSequenceNumber = getSequenceNumber( storageItem );
     // date created
@@ -1626,16 +1628,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getAssociationDescription
- ***********************************************************/
-quint32 FSStoragePlugin::getAssociationDescription( StorageItem * /*storageItem*/ )
-{
-    // 0 means it is not a bi-directionally linked folder.
-    // See section 3.6.2.1 of the MTP spec.
-    return 0;
 }
 
 /************************************************************
