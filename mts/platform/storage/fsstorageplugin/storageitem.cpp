@@ -91,3 +91,9 @@ MTPObjFormatCode StorageItem::objectFormatByExtension() const
         return extensionToFormat.value(ext, MTP_OBF_FORMAT_Undefined);
     }
 }
+
+quint64 StorageItem::size() const
+{
+    QFileInfo item(m_path);
+    return item.isFile() ? item.size() : 0;
+}

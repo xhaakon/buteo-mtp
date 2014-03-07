@@ -1564,7 +1564,7 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // protection status.
     storageItem->m_objectInfo->mtpProtectionStatus = getMTPProtectionStatus( storageItem );
     // object size.
-    storageItem->m_objectInfo->mtpObjectCompressedSize = getObjectSize( storageItem );
+    storageItem->m_objectInfo->mtpObjectCompressedSize = storageItem->size();
     // thumb size
     storageItem->m_objectInfo->mtpThumbCompressedSize = getThumbCompressedSize( storageItem );
     // thumb format
@@ -1601,23 +1601,6 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
 quint16 FSStoragePlugin::getMTPProtectionStatus( StorageItem* /*storageItem*/ )
 {
     // TODO Fetch from tracker or determine from the file.
-    return 0;
-}
-
-/************************************************************
- * quint64 FSStoragePlugin::getObjectSize
- ***********************************************************/
-quint64 FSStoragePlugin::getObjectSize( StorageItem *storageItem )
-{
-    if( !storageItem )
-    {
-        return 0;
-    }
-    QFileInfo item( storageItem->m_path );
-    if( item.isFile() )
-    {
-        return item.size();
-    }
     return 0;
 }
 

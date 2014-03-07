@@ -58,6 +58,11 @@ private:
     /// \return item's object format code.
     MTPObjFormatCode objectFormatByExtension() const;
 
+    /// Returns the size of the storage item in Bytes.
+    ///
+    /// \return item's file size.
+    quint64 size() const;
+
     ObjHandle m_handle; ///< the item's handle
     QString m_path; ///< the pathname by which this item is identified in the storage.
     int m_wd; ///< The item's iNotify watch descriptor. This will be -1 for non-directories

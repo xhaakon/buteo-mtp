@@ -234,11 +234,6 @@ private:
     /// \return the protection status code.
     quint16 getMTPProtectionStatus( StorageItem *storageItem );
 
-    /// Gets the size of a storage item in bytes.
-    /// \param storageItem [in] the storage item.
-    /// \return size in bytes.
-    quint64 getObjectSize( StorageItem *storageItem );
-
     /// Gets the format of a thumbnail item.
     /// \return the thumbnail format code.
     /// \param storageItem [in] the storage item.
