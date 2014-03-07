@@ -229,11 +229,6 @@ private:
     /// tracker
     void adjustMovedItemsPath( QString newAncestorPath, StorageItem* movedItem, bool updateInTracker = false );
 
-    /// Gets the protection status of a storage item.
-    /// \param storageItem [in] the storage item.
-    /// \return the protection status code.
-    quint16 getMTPProtectionStatus( StorageItem *storageItem );
-
     /// Gets the size of a thumbnail item in bytes.
     /// \param storageItem [in] the storage item.
     /// \return size in bytes.
