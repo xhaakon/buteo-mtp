@@ -211,3 +211,13 @@ QByteArray Thumbnailer::generateThumbnail(const QString& path)
     return ret;
 }
 #endif
+
+Thumbnailer &Thumbnailer::instance()
+{
+    static QScopedPointer<Thumbnailer> instance;
+    if (instance.isNull()) {
+        instance.reset(new Thumbnailer());
+    }
+
+    return *instance;
+}

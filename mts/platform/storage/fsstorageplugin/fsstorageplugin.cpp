@@ -100,8 +100,8 @@ FSStoragePlugin::FSStoragePlugin( quint32 storageId, MTPStorageType storageType,
     populatePuoids();
 
     m_tracker = new StorageTracker();
-    m_thumbnailer = new Thumbnailer();
-    QObject::connect( m_thumbnailer, SIGNAL( thumbnailReady( const QString& ) ), this, SLOT( receiveThumbnail( const QString& ) ) );
+    connect(&Thumbnailer::instance(), &Thumbnailer::thumbnailReady,
+            this, &FSStoragePlugin::receiveThumbnail);
     m_inotify = new FSInotify( IN_MOVE | IN_CREATE | IN_DELETE | IN_CLOSE_WRITE );
     QObject::connect( m_inotify, SIGNAL(inotifyEventSignal( struct inotify_event* )), this, SLOT(inotifyEventSlot( struct inotify_event* )) );
 
@@ -168,8 +168,6 @@ FSStoragePlugin::~FSStoragePlugin()
 
     delete m_tracker;
     m_tracker = 0;
-    delete m_thumbnailer;
-    m_thumbnailer = 0;
     delete m_inotify;
     m_inotify = 0;
 }
@@ -1611,8 +1609,9 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
 {
     quint32 size = 0;
     if (storageItem->isImage()) {
-        QString thumbPath = m_thumbnailer->requestThumbnail( storageItem->m_path,
-                m_imageMimeTable.value( storageItem->m_objectInfo->mtpObjectFormat ) );
+        QString thumbPath =
+                Thumbnailer::instance().requestThumbnail(storageItem->m_path,
+                m_imageMimeTable.value(storageItem->m_objectInfo->mtpObjectFormat));
         if( !thumbPath.isEmpty() )
         {
             size = QFileInfo( thumbPath ).size();
@@ -2367,7 +2366,9 @@ MTPResponseCode FSStoragePlugin:: getObjectPropertyValueFromStorage( const ObjHa
         case MTP_OBJ_PROP_Rep_Sample_Data:
         {
             StorageItem *storageItem = m_objectHandlesMap.value( handle );
-            QString thumbPath = m_thumbnailer->requestThumbnail(storageItem->m_path, m_imageMimeTable.value(objectInfo->mtpObjectFormat));
+            QString thumbPath =
+                    Thumbnailer::instance().requestThumbnail(storageItem->m_path,
+                            m_imageMimeTable.value(objectInfo->mtpObjectFormat));
             value = QVariant::fromValue(QVector<quint8>());
             if(false == thumbPath.isEmpty())
             {

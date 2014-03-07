@@ -45,7 +45,6 @@ namespace meegomtp1dot0
 {
 class FSInotify;
 class StorageTracker;
-class Thumbnailer;
 class StorageItem;
 }
 
@@ -313,7 +312,6 @@ private:
     ObjHandle m_uniqueObjectHandle; ///< The last alloted object handle
     ObjHandle m_writeObjectHandle; ///< The obj handle for which a write operation is currently is progress. 0 means invalid handle, NOT root node!!
     StorageTracker* m_tracker; ///< pointer to the tracker object
-    Thumbnailer* m_thumbnailer; ///< pointer to the thumbnailer object
     FSInotify* m_inotify; ///< pointer to the inotify wrapper
     QHash<MTPObjFormatCode, QString> m_imageMimeTable; ///< Maps the MTP object format code (for image types only) to MIME type string
     QString m_mtpPersistentDBPath;

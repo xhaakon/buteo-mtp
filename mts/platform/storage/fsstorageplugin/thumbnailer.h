@@ -51,8 +51,6 @@ class Thumbnailer : public ThumbnailerProxy
 {
     Q_OBJECT
     public:
-        /// Constructor; Default and the only constructor.
-        Thumbnailer();
         /// \brief Request a thumbnail.
         /// Use this method to request a thumbnail for the file at the given
         /// path. If the thumbnail for the given path is already present (in the
@@ -68,6 +66,10 @@ class Thumbnailer : public ThumbnailerProxy
         /// \return Returns the absolute path of the thumbnail file, if
         /// available, else returns an empty string.
         QString requestThumbnail(const QString &filePath, const QString &mimeType);
+        /// Returns the singleton instance of the thumbnailer.
+        ///
+        /// \return a reference to the thumbnailer.
+        static Thumbnailer &instance();
     Q_SIGNALS:
         /// \brief Signal to indicate that thumbnail is now available.
         /// Thumbnailer emits this signal when the thumbnail for the path
@@ -85,6 +87,9 @@ class Thumbnailer : public ThumbnailerProxy
         void slotRequestFinished(uint);
         ///< This slot handles the Error signal from the DBUS interface
         void slotError(uint, const QStringList&, int, const QString&);
+    protected:
+        /// Default and the only constructor.
+        Thumbnailer();
     private:
         ///< Checks if thumbnail for the requested path is already present in
         /// the system thumbnailer's cache.
