@@ -1583,7 +1583,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // TODO Fetch from tracker or determine from the file.
     storageItem->m_objectInfo->mtpImagePixelHeight = 0;
     // image bit depth
-    storageItem->m_objectInfo->mtpImageBitDepth = getImageBitDepth( storageItem );
+    // TODO Fetch from tracker or determine from the file.
+    storageItem->m_objectInfo->mtpImageBitDepth = 0;
     // parent object.
     storageItem->m_objectInfo->mtpParentObject = storageItem->m_parent ? storageItem->m_parent->m_handle : 0x00000000;
     // association type
@@ -1649,15 +1650,6 @@ quint32 FSStoragePlugin::getAssociationDescription( StorageItem * /*storageItem*
 {
     // 0 means it is not a bi-directionally linked folder.
     // See section 3.6.2.1 of the MTP spec.
-    return 0;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getImageBitDepth
- ***********************************************************/
-quint32 FSStoragePlugin::getImageBitDepth( StorageItem * /*storageItem*/ )
-{
-    // TODO Fetch from tracker or determine from the file.
     return 0;
 }
 

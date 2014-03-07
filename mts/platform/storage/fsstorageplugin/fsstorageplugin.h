@@ -249,12 +249,6 @@ private:
     /// \return a code describing the association type.
     quint32 getAssociationDescription( StorageItem *storageItem );
 
-
-    /// Gets the but depth of a image.
-    /// \param storageItem [in] the storage item.
-    /// \return depth in bits.
-    quint32 getImageBitDepth( StorageItem *storageItem );
-
     /// Gets the sequence no. of a storage item.
     /// \param storageItem [in] the storage item.
     /// \return the sequence no.
