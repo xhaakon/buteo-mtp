@@ -784,7 +784,7 @@ MTPResponseCode FSStoragePlugin::addToStorage( const QString &path,
 
     // Dates from our device
     item->m_objectInfo->mtpCaptureDate = item->dateCreated();
-    item->m_objectInfo->mtpModificationDate = getModifiedDate( item.data() );
+    item->m_objectInfo->mtpModificationDate = item->dateModified();
 
     if ( storageItem )
     {
@@ -1600,7 +1600,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // date created
     storageItem->m_objectInfo->mtpCaptureDate = storageItem->dateCreated();
     // date modified
-    storageItem->m_objectInfo->mtpModificationDate = getModifiedDate( storageItem );
+    storageItem->m_objectInfo->mtpModificationDate =
+            storageItem->dateModified();
     // keywords.
     storageItem->m_objectInfo->mtpKeywords = getKeywords( storageItem );
 }
@@ -1620,19 +1621,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * char* FSStoragePlugin::getModifiedDate
- ***********************************************************/
-QString FSStoragePlugin::getModifiedDate( StorageItem *storageItem )
-{
-    // Get modification date from the file system
-    QFileInfo fileInfo(storageItem->m_path);
-    QDateTime dt = fileInfo.lastModified();
-    dt = dt.toUTC();
-    QString dateModified = dt.toString("yyyyMMdd'T'hhmmss'Z'");
-    return dateModified;
 }
 
 /************************************************************

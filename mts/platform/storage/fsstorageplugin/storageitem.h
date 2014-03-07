@@ -82,6 +82,21 @@ private:
     /// \return MTP DateTime string.
     QString dateCreated() const;
 
+    /// Gets storage item's last modification date as MTP DateTime string.
+    ///
+    /// The format is described in MTP specification at C.2.18. Returned string
+    /// expresses the time in UTC time zone.
+    ///
+    /// \return MTP DateTime string.
+    QString dateModified() const;
+
+    /// Formats given QDateTime into a MTP DateTime string with UTC time zone.
+    ///
+    /// The format is described in MTP specification at C.2.18.
+    ///
+    /// \return MTP DateTime string.
+    static QString formatMTPDateTime(const QDateTime &date);
+
     ObjHandle m_handle; ///< the item's handle
     QString m_path; ///< the pathname by which this item is identified in the storage.
     int m_wd; ///< The item's iNotify watch descriptor. This will be -1 for non-directories

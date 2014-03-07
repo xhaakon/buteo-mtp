@@ -234,11 +234,6 @@ private:
     /// \return size in bytes.
     quint32 getThumbCompressedSize( StorageItem *storageItem );
 
-    /// Gets a storage item's last modification date.
-    /// \param storageItem [in] the storage item.
-    /// \return date modified.
-    QString getModifiedDate( StorageItem *storageItem );
-
     /// Gets key words for a storage item.
     /// \param storageItem [in] the storage item.
     /// \return keywords.

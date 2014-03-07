@@ -136,7 +136,15 @@ MTPAssociationType StorageItem::associationType() const
 
 QString StorageItem::dateCreated() const
 {
-    QFileInfo fileInfo(m_path);
-    QDateTime dt(fileInfo.created().toUTC());
-    return dt.toString("yyyyMMdd'T'hhmmss'Z'");
+    return formatMTPDateTime(QFileInfo(m_path).created());
+}
+
+QString StorageItem::dateModified() const
+{
+    return formatMTPDateTime(QFileInfo(m_path).lastModified());
+}
+
+QString StorageItem::formatMTPDateTime(const QDateTime &date)
+{
+    return date.toUTC().toString("yyyyMMdd'T'hhmmss'Z'");
 }
