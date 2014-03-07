@@ -1571,9 +1571,11 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     storageItem->m_objectInfo->mtpThumbFormat =
             storageItem->isImage() ? MTP_OBF_FORMAT_JFIF : MTP_OBF_FORMAT_Undefined;
     // thumb width
-    storageItem->m_objectInfo->mtpThumbPixelWidth = getThumbPixelWidth( storageItem );
+    storageItem->m_objectInfo->mtpThumbPixelWidth =
+            storageItem->isImage() ? THUMB_WIDTH : 0;
     // thumb height
-    storageItem->m_objectInfo->mtpThumbPixelHeight = getThumbPixelHeight( storageItem );
+    storageItem->m_objectInfo->mtpThumbPixelHeight =
+            storageItem->isImage() ? THUMB_HEIGHT : 0;
     // image pix width
     storageItem->m_objectInfo->mtpImagePixelWidth = getImagePixelWidth( storageItem );
     // image pix height
@@ -1603,30 +1605,6 @@ quint16 FSStoragePlugin::getMTPProtectionStatus( StorageItem* /*storageItem*/ )
 {
     // TODO Fetch from tracker or determine from the file.
     return 0;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getThumPixelWidth
- ***********************************************************/
-quint32 FSStoragePlugin::getThumbPixelWidth( StorageItem *storageItem )
-{
-    quint16 width = 0;
-    if (storageItem->isImage()) {
-        width = THUMB_WIDTH;
-    }
-    return width;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getThumPixelHeight
- ***********************************************************/
-quint32 FSStoragePlugin::getThumbPixelHeight( StorageItem *storageItem )
-{
-    quint16 height = 0;
-    if (storageItem->isImage()) {
-        height = THUMB_HEIGHT;
-    }
-    return height;
 }
 
 /************************************************************
