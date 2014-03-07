@@ -161,10 +161,6 @@ private:
     quint32 requestNewObjectHandle();
     void requestNewPuoid( MtpInt128& puoid );
 
-    // FIXME This should be in the protocol layer.
-    /// Build a list of all the object formats that we support.
-    void buildSupportedFormatsList();
-
     /// This method helps to send an MTP event through the MTP Event class.
     /// \handle handle  [in] of the object for which this event is sent.
     /// \eventCode [in]  the MTP event code.
@@ -313,7 +309,6 @@ private:
     ObjHandle m_writeObjectHandle; ///< The obj handle for which a write operation is currently is progress. 0 means invalid handle, NOT root node!!
     StorageTracker* m_tracker; ///< pointer to the tracker object
     FSInotify* m_inotify; ///< pointer to the inotify wrapper
-    QHash<MTPObjFormatCode, QString> m_imageMimeTable; ///< Maps the MTP object format code (for image types only) to MIME type string
     QString m_mtpPersistentDBPath;
     MtpInt128 m_largestPuoid;
     struct INotifyCache

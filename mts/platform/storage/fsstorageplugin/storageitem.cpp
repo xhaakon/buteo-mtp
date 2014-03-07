@@ -30,6 +30,7 @@
 */
 
 #include "storageitem.h"
+#include "thumbnailer.h"
 
 #include <QDateTime>
 #include <QFileInfo>
@@ -147,4 +148,23 @@ QString StorageItem::dateModified() const
 QString StorageItem::formatMTPDateTime(const QDateTime &date)
 {
     return date.toUTC().toString("yyyyMMdd'T'hhmmss'Z'");
+}
+
+QString StorageItem::thumbnailPath() const
+{
+    static QHash<MTPObjFormatCode, QString> formatToMIME;
+    if (formatToMIME.isEmpty()) {
+        formatToMIME[MTP_OBF_FORMAT_BMP] = QStringLiteral("image/bmp");
+        formatToMIME[MTP_OBF_FORMAT_GIF] = QStringLiteral("image/gif");
+        formatToMIME[MTP_OBF_FORMAT_EXIF_JPEG] = QStringLiteral("image/jpeg");
+        formatToMIME[MTP_OBF_FORMAT_PNG] = QStringLiteral("image/png");
+        formatToMIME[MTP_OBF_FORMAT_TIFF] = QStringLiteral("image/tiff");
+    }
+
+    const QString &mime = formatToMIME.value(m_objectInfo->mtpObjectFormat);
+    if (mime.isEmpty()) {
+        return QString();
+    }
+
+    return Thumbnailer::instance().requestThumbnail(m_path, mime);
 }

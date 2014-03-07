@@ -90,6 +90,20 @@ private:
     /// \return MTP DateTime string.
     QString dateModified() const;
 
+    /// Returns a filesystem path to a thumbnail representing the storage item.
+    ///
+    /// If the thumbnail doesn't exist and the item has a format that can be
+    /// thumbnailed, its creation is requested and this method returns an empty
+    /// QString. Thumbnailer::instance() will emit thumbnailReady() when the new
+    /// image is available. The item's storage should connect to the signal and
+    /// update its thumbnail path accordingly.
+    ///
+    /// For file types that don't support thumbnails this method always returns
+    /// an empty QString.
+    ///
+    /// \return a thumbnail path.
+    QString thumbnailPath() const;
+
     /// Formats given QDateTime into a MTP DateTime string with UTC time zone.
     ///
     /// The format is described in MTP specification at C.2.18.

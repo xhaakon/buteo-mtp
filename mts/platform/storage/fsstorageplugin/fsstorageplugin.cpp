@@ -94,8 +94,6 @@ FSStoragePlugin::FSStoragePlugin( quint32 storageId, MTPStorageType storageType,
     m_internalPlaylistPath = m_mtpPersistentDBPath + "/Playlists";
     m_playlistPath = storagePath + "/Playlists";
 
-    buildSupportedFormatsList();
-
     // Populate puoids stored persistently and store them in the puoids map.
     populatePuoids();
 
@@ -507,19 +505,6 @@ void FSStoragePlugin::storePuoids()
             return;
         }
     }
-}
-
-/************************************************************
- * void FSStoragePlugin::buildSupportedFormatsList
- ***********************************************************/
-void FSStoragePlugin::buildSupportedFormatsList()
-{
-    // Populate format code->MIME type map
-    m_imageMimeTable[MTP_OBF_FORMAT_BMP] = "image/bmp";
-    m_imageMimeTable[MTP_OBF_FORMAT_GIF] = "image/gif";
-    m_imageMimeTable[MTP_OBF_FORMAT_EXIF_JPEG] = "image/jpeg";
-    m_imageMimeTable[MTP_OBF_FORMAT_PNG] = "image/png";
-    m_imageMimeTable[MTP_OBF_FORMAT_TIFF] = "image/tiff";
 }
 
 /************************************************************
@@ -1609,9 +1594,7 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
 {
     quint32 size = 0;
     if (storageItem->isImage()) {
-        QString thumbPath =
-                Thumbnailer::instance().requestThumbnail(storageItem->m_path,
-                m_imageMimeTable.value(storageItem->m_objectInfo->mtpObjectFormat));
+        QString thumbPath = storageItem->thumbnailPath();
         if( !thumbPath.isEmpty() )
         {
             size = QFileInfo( thumbPath ).size();
@@ -2366,9 +2349,7 @@ MTPResponseCode FSStoragePlugin:: getObjectPropertyValueFromStorage( const ObjHa
         case MTP_OBJ_PROP_Rep_Sample_Data:
         {
             StorageItem *storageItem = m_objectHandlesMap.value( handle );
-            QString thumbPath =
-                    Thumbnailer::instance().requestThumbnail(storageItem->m_path,
-                            m_imageMimeTable.value(objectInfo->mtpObjectFormat));
+            QString thumbPath = storageItem->thumbnailPath();
             value = QVariant::fromValue(QVector<quint8>());
             if(false == thumbPath.isEmpty())
             {
