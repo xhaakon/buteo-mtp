@@ -74,6 +74,14 @@ private:
     /// \return the item's association type code.
     MTPAssociationType associationType() const;
 
+    /// Gets storage item's creation date as MTP DateTime string.
+    ///
+    /// The format is described in MTP specification at C.2.18. Returned string
+    /// expresses the time in UTC time zone.
+    ///
+    /// \return MTP DateTime string.
+    QString dateCreated() const;
+
     ObjHandle m_handle; ///< the item's handle
     QString m_path; ///< the pathname by which this item is identified in the storage.
     int m_wd; ///< The item's iNotify watch descriptor. This will be -1 for non-directories

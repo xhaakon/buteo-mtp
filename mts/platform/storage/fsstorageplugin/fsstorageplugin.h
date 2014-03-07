@@ -234,11 +234,6 @@ private:
     /// \return size in bytes.
     quint32 getThumbCompressedSize( StorageItem *storageItem );
 
-    /// Gets a storage item's creation date.
-    /// \param storageItem [in] the storage item.
-    /// \return date created.
-    QString getCreatedDate( StorageItem *storageItem );
-
     /// Gets a storage item's last modification date.
     /// \param storageItem [in] the storage item.
     /// \return date modified.

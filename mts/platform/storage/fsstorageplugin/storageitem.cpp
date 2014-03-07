@@ -31,6 +31,7 @@
 
 #include "storageitem.h"
 
+#include <QDateTime>
 #include <QFileInfo>
 
 using namespace meegomtp1dot0;
@@ -131,4 +132,11 @@ MTPAssociationType StorageItem::associationType() const
      * compatibility but are not required. */
     return item.isDir() ?
             MTP_ASSOCIATION_TYPE_GenFolder : MTP_ASSOCIATION_TYPE_Undefined;
+}
+
+QString StorageItem::dateCreated() const
+{
+    QFileInfo fileInfo(m_path);
+    QDateTime dt(fileInfo.created().toUTC());
+    return dt.toString("yyyyMMdd'T'hhmmss'Z'");
 }

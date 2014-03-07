@@ -41,7 +41,6 @@
 #include <QFile>
 #include <QDir>
 #include <QVariant>
-#include <QDateTime>
 
 using namespace meegomtp1dot0;
 
@@ -784,7 +783,7 @@ MTPResponseCode FSStoragePlugin::addToStorage( const QString &path,
     }
 
     // Dates from our device
-    item->m_objectInfo->mtpCaptureDate = getCreatedDate( item.data() );
+    item->m_objectInfo->mtpCaptureDate = item->dateCreated();
     item->m_objectInfo->mtpModificationDate = getModifiedDate( item.data() );
 
     if ( storageItem )
@@ -1599,7 +1598,7 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // TODO Fetch from tracker
     storageItem->m_objectInfo->mtpSequenceNumber = 0;
     // date created
-    storageItem->m_objectInfo->mtpCaptureDate = getCreatedDate( storageItem );
+    storageItem->m_objectInfo->mtpCaptureDate = storageItem->dateCreated();
     // date modified
     storageItem->m_objectInfo->mtpModificationDate = getModifiedDate( storageItem );
     // keywords.
@@ -1621,19 +1620,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * QString FSStoragePlugin::getCreatedDate
- ***********************************************************/
-QString FSStoragePlugin::getCreatedDate( StorageItem *storageItem )
-{
-    // Get creation date from the file system
-    QFileInfo fileInfo(storageItem->m_path);
-    QDateTime dt = fileInfo.created();
-    dt = dt.toUTC();
-    QString dateCreated = dt.toString("yyyyMMdd'T'hhmmss'Z'");
-    return dateCreated;
 }
 
 /************************************************************
