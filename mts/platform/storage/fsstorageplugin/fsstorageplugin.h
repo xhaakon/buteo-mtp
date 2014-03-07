@@ -234,11 +234,6 @@ private:
     /// \return the protection status code.
     quint16 getMTPProtectionStatus( StorageItem *storageItem );
 
-    /// Gets the format of a thumbnail item.
-    /// \return the thumbnail format code.
-    /// \param storageItem [in] the storage item.
-    quint16 getThumbFormat( StorageItem *storageItem );
-
     /// Gets the width of a thumbnail item in pixels.
     /// \param storageItem [in] the storage item.
     /// \return width in pixels.

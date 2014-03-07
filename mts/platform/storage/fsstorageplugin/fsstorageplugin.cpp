@@ -1568,7 +1568,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // thumb size
     storageItem->m_objectInfo->mtpThumbCompressedSize = getThumbCompressedSize( storageItem );
     // thumb format
-    storageItem->m_objectInfo->mtpThumbFormat = getThumbFormat( storageItem );
+    storageItem->m_objectInfo->mtpThumbFormat =
+            storageItem->isImage() ? MTP_OBF_FORMAT_JFIF : MTP_OBF_FORMAT_Undefined;
     // thumb width
     storageItem->m_objectInfo->mtpThumbPixelWidth = getThumbPixelWidth( storageItem );
     // thumb height
@@ -1602,18 +1603,6 @@ quint16 FSStoragePlugin::getMTPProtectionStatus( StorageItem* /*storageItem*/ )
 {
     // TODO Fetch from tracker or determine from the file.
     return 0;
-}
-
-/************************************************************
- * quint16 FSStoragePlugin::getThumbFormat
- ***********************************************************/
-quint16 FSStoragePlugin::getThumbFormat( StorageItem *storageItem )
-{
-    quint16 format = MTP_OBF_FORMAT_Undefined;
-    if (storageItem->isImage()) {
-        format = MTP_OBF_FORMAT_JFIF;
-    }
-    return format;
 }
 
 /************************************************************
