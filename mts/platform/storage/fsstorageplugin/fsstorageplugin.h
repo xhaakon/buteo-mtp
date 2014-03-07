@@ -229,11 +229,6 @@ private:
     /// tracker
     void adjustMovedItemsPath( QString newAncestorPath, StorageItem* movedItem, bool updateInTracker = false );
 
-    /// Gets the object format of a storage item.
-    /// \param storageItem [in] the storage item.
-    /// \return object format code.
-    quint16 getObjectFormatByExtension( StorageItem *storageItem );
-
     /// Gets the protection status of a storage item.
     /// \param storageItem [in] the storage item.
     /// \return the protection status code.
@@ -392,7 +387,6 @@ private:
     StorageTracker* m_tracker; ///< pointer to the tracker object
     Thumbnailer* m_thumbnailer; ///< pointer to the thumbnailer object
     FSInotify* m_inotify; ///< pointer to the inotify wrapper
-    QHash<QString,quint16> m_formatByExtTable;
     QHash<MTPObjFormatCode, QString> m_imageMimeTable; ///< Maps the MTP object format code (for image types only) to MIME type string
     QString m_mtpPersistentDBPath;
     MtpInt128 m_largestPuoid;

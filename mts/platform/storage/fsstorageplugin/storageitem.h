@@ -52,6 +52,12 @@ public:
     ~StorageItem();
 
 private:
+    /// Returns storage item's MTP object format determined from its filename
+    /// extension.
+    ///
+    /// \return item's object format code.
+    MTPObjFormatCode objectFormatByExtension() const;
+
     ObjHandle m_handle; ///< the item's handle
     QString m_path; ///< the pathname by which this item is identified in the storage.
     int m_wd; ///< The item's iNotify watch descriptor. This will be -1 for non-directories

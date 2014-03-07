@@ -31,6 +31,8 @@
 
 #include "storageitem.h"
 
+#include <QFileInfo>
+
 using namespace meegomtp1dot0;
 
 // Constructor.
@@ -46,5 +48,46 @@ StorageItem::~StorageItem()
     {
         delete m_objectInfo;
         m_objectInfo = 0;
+    }
+}
+
+MTPObjFormatCode StorageItem::objectFormatByExtension() const
+{
+    static QHash<QString,MTPObjFormatCode> extensionToFormat;
+    if (extensionToFormat.isEmpty()) {
+        extensionToFormat["3gp"] = MTP_OBF_FORMAT_3GP_Container;
+        extensionToFormat["aac"] = MTP_OBF_FORMAT_AAC;
+        extensionToFormat["alb"] = MTP_OBF_FORMAT_Abstract_Audio_Album;
+        extensionToFormat["avi"] = MTP_OBF_FORMAT_AVI;
+        extensionToFormat["bmp"] = MTP_OBF_FORMAT_BMP;
+        extensionToFormat["gif"] = MTP_OBF_FORMAT_GIF;
+        extensionToFormat["htm"] = MTP_OBF_FORMAT_HTML;
+        extensionToFormat["html"] = MTP_OBF_FORMAT_HTML;
+        extensionToFormat["jpeg"] = MTP_OBF_FORMAT_EXIF_JPEG;
+        extensionToFormat["jpg"] = MTP_OBF_FORMAT_EXIF_JPEG;
+        extensionToFormat["mp3"] = MTP_OBF_FORMAT_MP3;
+        extensionToFormat["mp4"] = MTP_OBF_FORMAT_MP4_Container;
+        extensionToFormat["mpeg"] = MTP_OBF_FORMAT_MPEG;
+        extensionToFormat["mpg"] = MTP_OBF_FORMAT_MPEG;
+        extensionToFormat["ogg"] = MTP_OBF_FORMAT_OGG;
+        extensionToFormat["pla"] = MTP_OBF_FORMAT_Abstract_Audio_Video_Playlist;
+        extensionToFormat["pls"] = MTP_OBF_FORMAT_PLS_Playlist;
+        extensionToFormat["png"] = MTP_OBF_FORMAT_PNG;
+        extensionToFormat["tif"] = MTP_OBF_FORMAT_TIFF;
+        extensionToFormat["tiff"] = MTP_OBF_FORMAT_TIFF;
+        extensionToFormat["txt"] = MTP_OBF_FORMAT_Text;
+        extensionToFormat["wav"] = MTP_OBF_FORMAT_WAV;
+        extensionToFormat["wma"] = MTP_OBF_FORMAT_WMA;
+        extensionToFormat["wmv"] = MTP_OBF_FORMAT_WMV;
+    }
+
+    // TODO Fetch from tracker or determine from the file.
+
+    QFileInfo item(m_path);
+    if(item.isDir()) {
+        return MTP_OBF_FORMAT_Association;
+    } else {
+        QString ext(item.suffix().toLower());
+        return extensionToFormat.value(ext, MTP_OBF_FORMAT_Undefined);
     }
 }

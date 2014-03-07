@@ -41,7 +41,6 @@
 #include <QFile>
 #include <QDir>
 #include <QVariant>
-#include <QFileInfo>
 #include <QDateTime>
 
 using namespace meegomtp1dot0;
@@ -518,31 +517,6 @@ void FSStoragePlugin::storePuoids()
  ***********************************************************/
 void FSStoragePlugin::buildSupportedFormatsList()
 {
-    m_formatByExtTable["pla"] = MTP_OBF_FORMAT_Abstract_Audio_Video_Playlist;
-    m_formatByExtTable["wav"] = MTP_OBF_FORMAT_WAV;
-    m_formatByExtTable["mp3"] = MTP_OBF_FORMAT_MP3;
-    m_formatByExtTable["ogg"] = MTP_OBF_FORMAT_OGG;
-    m_formatByExtTable["txt"] = MTP_OBF_FORMAT_Text;
-    m_formatByExtTable["htm"] = MTP_OBF_FORMAT_HTML;
-    m_formatByExtTable["html"] = MTP_OBF_FORMAT_HTML;
-    m_formatByExtTable["wmv"] = MTP_OBF_FORMAT_WMV;
-    m_formatByExtTable["avi"] = MTP_OBF_FORMAT_AVI;
-    m_formatByExtTable["mpg"] = MTP_OBF_FORMAT_MPEG;
-    m_formatByExtTable["mpeg"] = MTP_OBF_FORMAT_MPEG;
-    m_formatByExtTable["bmp"] = MTP_OBF_FORMAT_BMP;
-    m_formatByExtTable["gif"] = MTP_OBF_FORMAT_GIF;
-    m_formatByExtTable["jpg"] = MTP_OBF_FORMAT_EXIF_JPEG;
-    m_formatByExtTable["jpeg"] = MTP_OBF_FORMAT_EXIF_JPEG;
-    m_formatByExtTable["png"] = MTP_OBF_FORMAT_PNG;
-    m_formatByExtTable["tif"] = MTP_OBF_FORMAT_TIFF;
-    m_formatByExtTable["tiff"] = MTP_OBF_FORMAT_TIFF;
-    m_formatByExtTable["wma"] = MTP_OBF_FORMAT_WMA;
-    m_formatByExtTable["aac"] = MTP_OBF_FORMAT_AAC;
-    m_formatByExtTable["mp4"] = MTP_OBF_FORMAT_MP4_Container;
-    m_formatByExtTable["3gp"] = MTP_OBF_FORMAT_3GP_Container;
-    m_formatByExtTable["pls"] = MTP_OBF_FORMAT_PLS_Playlist;
-    m_formatByExtTable["alb"] = MTP_OBF_FORMAT_Abstract_Audio_Album;
-
     // Populate format code->MIME type map
     m_imageMimeTable[MTP_OBF_FORMAT_BMP] = "image/bmp";
     m_imageMimeTable[MTP_OBF_FORMAT_GIF] = "image/gif";
@@ -1585,7 +1559,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     name = name.remove(0,storageItem->m_path.lastIndexOf("/") + 1);
     storageItem->m_objectInfo->mtpFileName = name;
     // object format.
-    storageItem->m_objectInfo->mtpObjectFormat = getObjectFormatByExtension( storageItem );
+    storageItem->m_objectInfo->mtpObjectFormat =
+            storageItem->objectFormatByExtension();
     // protection status.
     storageItem->m_objectInfo->mtpProtectionStatus = getMTPProtectionStatus( storageItem );
     // object size.
@@ -1618,30 +1593,6 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     storageItem->m_objectInfo->mtpModificationDate = getModifiedDate( storageItem );
     // keywords.
     storageItem->m_objectInfo->mtpKeywords = getKeywords( storageItem );
-}
-
-/************************************************************
- * quint16 FSStoragePlugin::getObjectFormatByExtension
- ***********************************************************/
-quint16 FSStoragePlugin::getObjectFormatByExtension( StorageItem *storageItem )
-{
-    // TODO Fetch from tracker or determine from the file.
-    quint16 format = MTP_OBF_FORMAT_Undefined;
-
-    QFileInfo item(storageItem->m_path);
-    if( item.isDir() )
-    {
-        format = MTP_OBF_FORMAT_Association;
-    }
-    else //file
-    {
-        QString ext = storageItem->m_path.section('.',-1).toLower();
-        if( m_formatByExtTable.contains( ext ) )
-        {
-            format = m_formatByExtTable[ext];
-        }
-    }
-    return format;
 }
 
 /************************************************************
