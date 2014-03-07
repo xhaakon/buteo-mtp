@@ -1588,7 +1588,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // parent object.
     storageItem->m_objectInfo->mtpParentObject = storageItem->m_parent ? storageItem->m_parent->m_handle : 0x00000000;
     // association type
-    storageItem->m_objectInfo->mtpAssociationType = getAssociationType( storageItem );
+    storageItem->m_objectInfo->mtpAssociationType =
+            storageItem->associationType();
     // association description
     storageItem->m_objectInfo->mtpAssociationDescription = getAssociationDescription( storageItem );
     // sequence number
@@ -1625,22 +1626,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * quint16 FSStoragePlugin::getAssociationType
- ***********************************************************/
-quint16 FSStoragePlugin::getAssociationType( StorageItem *storageItem )
-{
-    QFileInfo item(storageItem->m_path);
-    if( item.isDir() )
-    {
-        // GenFolder is the only type used in MTP.
-        // The others may be used for PTP compatibility but are not required.
-        return MTP_ASSOCIATION_TYPE_GenFolder;
-    }
-    else
-        return 0;
 }
 
 /************************************************************

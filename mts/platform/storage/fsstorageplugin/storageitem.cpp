@@ -123,3 +123,12 @@ bool StorageItem::isImage() const
             return false;
     }
 }
+
+MTPAssociationType StorageItem::associationType() const
+{
+    QFileInfo item(m_path);
+    /* GenFolder is the only type used in MTP. The others may be used for PTP
+     * compatibility but are not required. */
+    return item.isDir() ?
+            MTP_ASSOCIATION_TYPE_GenFolder : MTP_ASSOCIATION_TYPE_Undefined;
+}

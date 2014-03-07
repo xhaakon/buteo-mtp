@@ -239,11 +239,6 @@ private:
     /// \return size in bytes.
     quint32 getThumbCompressedSize( StorageItem *storageItem );
 
-    /// Gets the association type of a storage item.
-    /// \param storageItem [in] the storage item.
-    /// \return a code specifying the association type.
-    quint16 getAssociationType( StorageItem *storageItem );
-
     /// Gets the association description of a storage item.
     /// \param storageItem [in] the storage item.
     /// \return a code describing the association type.
