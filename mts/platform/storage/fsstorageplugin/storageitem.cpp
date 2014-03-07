@@ -97,3 +97,29 @@ quint64 StorageItem::size() const
     QFileInfo item(m_path);
     return item.isFile() ? item.size() : 0;
 }
+
+bool StorageItem::isImage() const
+{
+    MTPObjFormatCode objectFormat = MTP_OBF_FORMAT_Undefined;
+
+    // Do we have the format already stored in object info?
+    if (m_objectInfo) {
+        objectFormat = m_objectInfo->mtpObjectFormat;
+    }
+
+    if (objectFormat == MTP_OBF_FORMAT_Undefined) {
+        // Looks like we don't, determine from extension.
+        objectFormat = objectFormatByExtension();
+    }
+
+    switch (objectFormat) {
+        case MTP_OBF_FORMAT_BMP:
+        case MTP_OBF_FORMAT_EXIF_JPEG:
+        case MTP_OBF_FORMAT_GIF:
+        case MTP_OBF_FORMAT_PNG:
+        case MTP_OBF_FORMAT_TIFF:
+            return true;
+        default:
+            return false;
+    }
+}

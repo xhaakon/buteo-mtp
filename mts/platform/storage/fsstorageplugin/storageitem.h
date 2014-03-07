@@ -63,6 +63,12 @@ private:
     /// \return item's file size.
     quint64 size() const;
 
+    /// Checks whether the storage item is an image file, based on its
+    /// extension.
+    ///
+    /// \return \c true if item is an image, otherwise \c false.
+    bool isImage() const;
+
     ObjHandle m_handle; ///< the item's handle
     QString m_path; ///< the pathname by which this item is identified in the storage.
     int m_wd; ///< The item's iNotify watch descriptor. This will be -1 for non-directories

@@ -1605,35 +1605,12 @@ quint16 FSStoragePlugin::getMTPProtectionStatus( StorageItem* /*storageItem*/ )
 }
 
 /************************************************************
- * bool FSStoragePlugin::isImage
- ***********************************************************/
-bool FSStoragePlugin::isImage( StorageItem *storageItem )
-{
-    //UGLY
-    if( storageItem &&
-        ( storageItem->m_path.endsWith("gif")  ||
-          storageItem->m_path.endsWith("jpeg") ||
-          storageItem->m_path.endsWith("jpg")  ||
-          storageItem->m_path.endsWith("bmp")  ||
-          storageItem->m_path.endsWith("tif")  ||
-          storageItem->m_path.endsWith("tiff") ||
-          storageItem->m_path.endsWith("png")
-        )
-      )
-    {
-        return true;
-    }
-    return false;
-}
-
-/************************************************************
  * quint16 FSStoragePlugin::getThumbFormat
  ***********************************************************/
 quint16 FSStoragePlugin::getThumbFormat( StorageItem *storageItem )
 {
     quint16 format = MTP_OBF_FORMAT_Undefined;
-    if( isImage( storageItem ) )
-    {
+    if (storageItem->isImage()) {
         format = MTP_OBF_FORMAT_JFIF;
     }
     return format;
@@ -1645,8 +1622,7 @@ quint16 FSStoragePlugin::getThumbFormat( StorageItem *storageItem )
 quint32 FSStoragePlugin::getThumbPixelWidth( StorageItem *storageItem )
 {
     quint16 width = 0;
-    if( isImage( storageItem ) )
-    {
+    if (storageItem->isImage()) {
         width = THUMB_WIDTH;
     }
     return width;
@@ -1658,8 +1634,7 @@ quint32 FSStoragePlugin::getThumbPixelWidth( StorageItem *storageItem )
 quint32 FSStoragePlugin::getThumbPixelHeight( StorageItem *storageItem )
 {
     quint16 height = 0;
-    if( isImage( storageItem ) )
-    {
+    if (storageItem->isImage()) {
         height = THUMB_HEIGHT;
     }
     return height;
@@ -1671,8 +1646,7 @@ quint32 FSStoragePlugin::getThumbPixelHeight( StorageItem *storageItem )
 quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
 {
     quint32 size = 0;
-    if ( isImage( storageItem ) )
-    {
+    if (storageItem->isImage()) {
         QString thumbPath = m_thumbnailer->requestThumbnail( storageItem->m_path,
                 m_imageMimeTable.value( storageItem->m_objectInfo->mtpObjectFormat ) );
         if( !thumbPath.isEmpty() )

@@ -342,7 +342,6 @@ private:
     MTPResponseCode getObjectPropertyValueFromTracker( const ObjHandle &handle,
                                                        MTPObjPropertyCode propCode,
                                                        QVariant &value, MTPDataType type );
-    bool isImage(StorageItem*);
 
     /// Removes watch descriptors on a directory and it's sub directories if any.
     void removeWatchDescriptorRecursively( StorageItem* item );
