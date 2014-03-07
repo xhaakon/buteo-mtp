@@ -2422,7 +2422,7 @@ MTPResponseCode FSStoragePlugin:: getObjectPropertyValueFromStorage( const ObjHa
         }
         break;
         case MTP_OBJ_PROP_Obj_Size:
-        {
+        {// NOT INVALIDATED FROM CACHE!!!
             quint64 v = objectInfo->mtpObjectCompressedSize;
             value = QVariant::fromValue(v);
         }
@@ -2753,7 +2753,7 @@ void FSStoragePlugin::receiveThumbnail(const QString &path)
                 getThumbCompressedSize( storageItem );
 
         QVector<quint32> params;
-        params.append(handle);
+        params.append(handle); // TODO: remove
         emit eventGenerated(MTP_EV_ObjectInfoChanged, params);
 
         params.append(MTP_OBJ_PROP_Rep_Sample_Data);
