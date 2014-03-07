@@ -1595,7 +1595,8 @@ void FSStoragePlugin::populateObjectInfo( StorageItem *storageItem )
     // See section 3.6.2.1 of the MTP spec.
     storageItem->m_objectInfo->mtpAssociationDescription = 0;
     // sequence number
-    storageItem->m_objectInfo->mtpSequenceNumber = getSequenceNumber( storageItem );
+    // TODO Fetch from tracker
+    storageItem->m_objectInfo->mtpSequenceNumber = 0;
     // date created
     storageItem->m_objectInfo->mtpCaptureDate = getCreatedDate( storageItem );
     // date modified
@@ -1628,15 +1629,6 @@ quint32 FSStoragePlugin::getThumbCompressedSize( StorageItem *storageItem )
         }
     }
     return size;
-}
-
-/************************************************************
- * quint32 FSStoragePlugin::getSequenceNumber
- ***********************************************************/
-quint32 FSStoragePlugin::getSequenceNumber( StorageItem * /*storageItem*/ )
-{
-    // TODO Fetch from tracker
-    return 0;
 }
 
 /************************************************************

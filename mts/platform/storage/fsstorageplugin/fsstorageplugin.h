@@ -239,11 +239,6 @@ private:
     /// \return size in bytes.
     quint32 getThumbCompressedSize( StorageItem *storageItem );
 
-    /// Gets the sequence no. of a storage item.
-    /// \param storageItem [in] the storage item.
-    /// \return the sequence no.
-    quint32 getSequenceNumber( StorageItem *storageItem );
-
     /// Gets a storage item's creation date.
     /// \param storageItem [in] the storage item.
     /// \return date created.
